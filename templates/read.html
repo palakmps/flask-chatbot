@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Preview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        #text-content {
+            white-space: pre-wrap;
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Document Preview</h1>
+
+<div id="text-content">{{ text }}</div>
+
+<div class="controls">
+    <button id="speak-button">Read Aloud</button>
+    <button id="pause-button">Pause</button>
+    <button id="resume-button">Resume</button>
+</div>
+
+<script>
+    let utterance = null;
+
+    document.getElementById('speak-button').addEventListener('click', function () {
+        const text = document.getElementById('text-content').innerText;
+        if (text) {
+            utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("No text to read.");
+        }
+    });
+
+    document.getElementById('pause-button').addEventListener('click', function () {
+        window.speechSynthesis.pause();
+    });
+
+    document.getElementById('resume-button').addEventListener('click', function () {
+        window.speechSynthesis.resume();
+    });
+</script>
+</body>
+</html>
